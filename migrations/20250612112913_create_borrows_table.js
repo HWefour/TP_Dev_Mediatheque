@@ -1,13 +1,16 @@
+const { v4: uuidv4 } = require('uuid');
+
 exports.up = function(knex) {
   return knex.schema.createTable('borrows', function(table) {
     table.increments('id').primary();
-    table.uuid('uuid').notNullable().unique().defaultTo(knex.raw('(UUID())'));
+    table.string('uuid', 36).notNullable().unique();
     table.integer('utilisateur_id').unsigned().notNullable();
     table.integer('ressource_id').unsigned().notNullable();
-    table.date('date_emprunt').notNullable().defaultTo(knex.fn.now());
+    table.date('date_emprunt').notNullable();
     table.date('date_retour').notNullable();
     table.date('date_retour_effective').nullable();
-    table.timestamps(true, true);
+    table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('updated_at').defaultTo(knex.fn.now());
     
     // Clés étrangères
     table.foreign('utilisateur_id').references('id').inTable('users').onDelete('CASCADE');
