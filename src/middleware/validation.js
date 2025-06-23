@@ -27,9 +27,9 @@ const validateUser = [
     .isEmail()
     .normalizeEmail()
     .withMessage('Adresse email invalide'),
-  body('telephone')
-    .matches(/^[\+]?[\d\s\-\(\)]{8,15}$/)
-    .withMessage('Numéro de téléphone invalide'),
+ body('telephone')
+  .matches(/^[+]?[\d\s\-()]{8,15}$/)
+  .withMessage('Numéro de téléphone invalide'),
   body('nationalite')
     .trim()
     .isLength({ min: 2, max: 50 })

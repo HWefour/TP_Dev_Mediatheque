@@ -8,7 +8,7 @@ class Resource {
 
   static async create(resourceData) {
     const uuid = uuidv4();
-    const [id] = await db(this.tableName).insert({
+    await db(this.tableName).insert({
       uuid,
       ...resourceData,
       disponible: true,
